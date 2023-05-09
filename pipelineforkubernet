@@ -1,7 +1,7 @@
 pipeline {
    agent any
    environment {
-       //DISABLE_AUTH = 'true'                               //can be used in whole pipeline
+       DISABLE_AUTH = 'true'                               //can be used in whole pipeline
        //PATH="C:/DevTools/apache-maven-3.9.1/bin:$PATH"
        //DOCKER_TAG = getDockerTag()
    }
