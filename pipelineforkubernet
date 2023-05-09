@@ -6,10 +6,20 @@ pipeline {
        DOCKER_TAG = getDockerTag()
    }
    stages{
-        stage("Build Docker Image"){
+        stage("Build Docker Image"){  //This stage to build docker image
             steps{
                 sh "docker build . -t kammana/nodeapp:${DOCKER_TAG}"
                 //echo "The username  is $Username"
+            }
+        }
+        stage("dockerhub push"){//this stage to push docker image to docker hub
+            
+            steps{
+                withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
+                   sh "docker login -u kammana -p ${dockerHubPwd}"
+                   sh "docker push kammana/nodeapp:${DOCKER_TAG}"
+                   // some block
+                }
             }
         }
        
