@@ -1,0 +1,10 @@
+pipeline{
+    agent any
+    stages{
+        stage("Github fetch data"){
+            steps{
+                git 'https://github.com/rocky669/time-tracker'
+            }
+        }
+    }
+}
