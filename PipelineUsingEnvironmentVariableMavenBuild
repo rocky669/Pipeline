@@ -1,9 +1,10 @@
-pipeline{
-    agent any
-    enviroment{
-        DISABLE_AUTH = 'true'
-    }
-    stages{
+pipeline {
+   agent any
+   environment {
+       DISABLE_AUTH = 'true'                               //can be used in whole pipeline
+       PATH="C:/DevTools/apache-maven-3.9.1/bin:$PATH"
+   }
+   stages{
         stage("Github fetch data"){
             steps{
                 git 'https://github.com/rocky669/time-tracker'
@@ -14,5 +15,5 @@ pipeline{
                 sh "mvn clean package"
             }
         }
-    }
+   }
 }
