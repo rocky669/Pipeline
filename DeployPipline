@@ -17,15 +17,17 @@ pipeline {
             }
         }
         stage("Deploy-Dev"){
-            sshagent(['tomcat-pass']) {
-             sh """
-                scp -o StrictHostKeyChecking=no target/myweb.war  192.168.0.105:/Program Files/Apache Software Foundation/Tomcat 9.0/webapps/
-                ssh 192.168.0.105 /Program Files/Apache Software Foundation/Tomcat 9.0/bin/shutdowwn.sh
-                ssh 192.168.0.105 /Program Files/Apache Software Foundation/Tomcat 9.0/bin/startup.sh
+           steps{
+                sshagent(['tomcat-pass']) {
+                sh """
+                    scp -o StrictHostKeyChecking=no target/myweb.war  192.168.0.105:/Program Files/Apache Software Foundation/Tomcat 9.0/webapps/
+                    ssh 192.168.0.105 /Program Files/Apache Software Foundation/Tomcat 9.0/bin/shutdowwn.sh
+                    ssh 192.168.0.105 /Program Files/Apache Software Foundation/Tomcat 9.0/bin/startup.sh
                 
-             """
-           }
+                """
+                }
+            }
             
         }
-   }
+    }
 }
