@@ -3,7 +3,7 @@ pipeline {
    environment {
        //DISABLE_AUTH = 'true'                               //can be used in whole pipeline
        //PATH="C:/DevTools/apache-maven-3.9.1/bin:$PATH"
-       DOCKER_TAG = getDockerTag()
+       //DOCKER_TAG = getDockerTag()
    }
    stages{
         stage("Build Docker Image"){
