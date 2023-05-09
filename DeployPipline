@@ -1,0 +1,31 @@
+pipeline {
+   agent any
+   environment {
+       //DISABLE_AUTH = 'true'                               //can be used in whole pipeline
+       PATH="C:/DevTools/apache-maven-3.9.1/bin:$PATH"
+   }
+   stages{
+        stage("Github fetch data"){
+            steps{
+                git 'https://github.com/rocky669/time-tracker'
+            }
+        }
+        stage("Maven Build"){
+            steps{
+                sh "mvn clean package"
+                sh "mv target/*.war target/myweb.war"
+            }
+        }
+        stage("Deploy-Dev"){
+            sshagent(['tomcat-pass']) {
+             sh """
+                scp -o StrictHostKeyChecking=no target/myweb.war  192.168.0.105:/Program Files/Apache Software Foundation/Tomcat 9.0/webapps/
+                ssh 192.168.0.105 /Program Files/Apache Software Foundation/Tomcat 9.0/bin/shutdowwn.sh
+                ssh 192.168.0.105 /Program Files/Apache Software Foundation/Tomcat 9.0/bin/startup.sh
+                
+             """
+           }
+            
+        }
+   }
+}
