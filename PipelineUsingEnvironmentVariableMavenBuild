@@ -1,7 +1,7 @@
 pipeline{
     agent any
     enviroment{
-        PATH="C:\DevTools\apache-maven-3.9.1\bin":$PATH
+        PATH="C:/DevTools/apache-maven-3.9.1/bin":$PATH
         }
     stages{
         stage("Github fetch data"){
